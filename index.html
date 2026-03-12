@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio | Maria Alejandra Méndez Calderón</title>
+    <meta name="description" content="Portafolio profesional de Maria Alejandra Méndez Calderón, Licenciada en Matemáticas.">
+    
+    <style>
+        /* Modern Design System Tokens - Colores solicitados */
+        :root {
+            --primary: #ff647a;
+            --primary-light: #ff978f;
+            --primary-dark: #e6566a;
+            --accent: #ff80ab;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --bg-body: #ffffff;
+            --bg-card: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --shadow-soft: 0 10px 30px rgba(255, 100, 122, 0.1);
+            --shadow-strong: 0 20px 40px rgba(255, 100, 122, 0.2);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Base & Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        /* Ocultar cursor en Desktop para usar el personalizado */
+        @media (min-width: 1024px) {
+            body { cursor: none; }
+            a, button, input, textarea { cursor: none; }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Fondo de Matemáticas Alusivo */
+        .math-base-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            background-image: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.05; /* Muy ligera transparencia */
+            filter: grayscale(1);
+        }
+
+        /* Background Decorations (Mantiene estilo anterior) */
+        .bg-decor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .blob {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, var(--primary-light), transparent);
+            filter: blur(80px);
+            border-radius: 50%;
+            opacity: 0.15;
+            animation: move 20s infinite alternate;
+        }
+        .blob-1 { top: -10%; right: -10%; background: var(--primary); }
+        .blob-2 { bottom: -10%; left: -10%; background: var(--accent); }
+
+        @keyframes move {
+            from { transform: translate(0, 0) rotate(0deg); }
+            to { transform: translate(100px, 50px) rotate(30deg); }
+        }
+
+        /* Cursor Personalizado Moderno */
+        #cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary);
+            position: fixed;
+            border-radius: 50%;
+            z-index: 10001;
+            pointer-events: none;
+            transition: transform 0.1s;
+        }
+
+        #cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--primary-light);
+            position: fixed;
+            border-radius: 50%;
+            z-index: 10000;
+            pointer-events: none;
+            transition: transform 0.2s ease-out, background 0.3s;
+            box-shadow: 0 0 10px rgba(255, 100, 122, 0.2);
+        }
+
+        /* Navigation - "DOCENTE" */
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            padding: 15px 30px;
+            border-radius: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.4rem;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .nav-links li a:hover { color: var(--primary); }
+
+        /* Selector de Idioma */
+        .lang-toggle {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 0.75rem;
+            cursor: none;
+            transition: var(--transition);
+        }
+        .lang-toggle:hover { background: var(--primary-dark); transform: scale(1.05); }
+
+        /* General Layout */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 30px; }
+
+        section { padding: 100px 0; opacity: 0; transform: translateY(40px); transition: 1s ease; }
+        section.visible { opacity: 1; transform: translateY(0); }
+
+        /* Hero */
+        #home { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .hero-content { position: relative; }
+        .profile-wrapper { position: relative; width: 220px; height: 220px; margin: 0 auto 30px; }
+        .profile-wrapper svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; animation: rotate 10s linear infinite; }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .profile-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 5px solid white; box-shadow: var(--shadow-strong); position: relative; z-index: 1; }
+        .hero-name { font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 900; margin-bottom: 10px; }
+        .role-badge { display: inline-block; background: linear-gradient(90deg, var(--primary), var(--primary-light)); color: white; padding: 8px 25px; border-radius: 50px; font-weight: 700; font-size: 1.1rem; }
+
+        /* Shared Components */
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.8rem; font-weight: 800; background: linear-gradient(90deg, var(--primary), var(--primary-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .glass-card { background: var(--bg-card); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); padding: 40px; border-radius: 30px; box-shadow: var(--shadow-soft); max-width: 800px; margin: 0 auto; }
+
+        /* Skills Grid */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .skill-item { background: white; padding: 40px 30px; border-radius: 30px; border-left: 6px solid var(--primary); transition: var(--transition); box-shadow: var(--shadow-soft); }
+        .skill-item:hover { transform: translateY(-10px); box-shadow: var(--shadow-strong); border-color: var(--primary-light); }
+        .skill-icon { font-size: 2.5rem; margin-bottom: 15px; display: block; }
+        .skill-item h3 { color: var(--primary); margin-bottom: 10px; }
+
+        /* Experience Box */
+        .exp-box { background: rgba(255,255,255,0.9); border-radius: 30px; padding: 50px; border: 1px solid #ffecec; display: flex; align-items: center; gap: 40px; box-shadow: var(--shadow-soft); }
+        .exp-number { font-size: 5rem; font-weight: 900; color: var(--primary-light); line-height: 1; }
+
+        /* Contact Section & Form */
+        .contact-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 50px; }
+        .contact-info-card { text-align: left; }
+        .contact-links { display: flex; flex-direction: column; gap: 15px; margin-top: 30px; }
+        .contact-link { text-decoration: none; color: var(--text-main); font-weight: 700; display: flex; align-items: center; gap: 10px; transition: var(--transition); }
+        .contact-link:hover { color: var(--primary); transform: translateX(5px); }
+        
+        .contact-form { display: flex; flex-direction: column; gap: 20px; }
+        .input-group { display: flex; flex-direction: column; gap: 8px; text-align: left; }
+        .input-group label { font-weight: 700; color: var(--primary); font-size: 0.9rem; margin-left: 5px; }
+        .input-group input, .input-group textarea { padding: 15px 20px; border-radius: 20px; border: 1px solid #eee; background: rgba(255,255,255,0.8); font-size: 1rem; transition: var(--transition); }
+        .input-group input:focus, .input-group textarea:focus { border-color: var(--primary); background: white; box-shadow: 0 0 0 4px rgba(255,100,122,0.1); }
+        
+        .btn-send { background: var(--primary); color: white; padding: 18px; border-radius: 50px; border: none; font-weight: 900; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; transition: var(--transition); }
+        .btn-send:hover { background: var(--primary-dark); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(255,100,122,0.3); }
+
+        /* Footer */
+        footer { padding: 60px 0; text-align: center; font-size: 0.9rem; color: var(--text-muted); }
+
+        /* Responsive Mobile */
+        @media (max-width: 768px) {
+            nav { width: 95%; padding: 12px 20px; }
+            .nav-links { display: none; }
+            .logo { font-size: 1.2rem; }
+            #home { padding-top: 150px; }
+            .hero-name { font-size: 2.5rem; }
+            .exp-box { flex-direction: column; text-align: center; }
+            .contact-layout { grid-template-columns: 1fr; }
+            #cursor-dot, #cursor-outline { display: none; }
+            * { cursor: auto !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cursor Pers. -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-outline"></div>
+
+    <!-- Fondo de Matemáticas -->
+    <div class="math-base-bg"></div>
+    <div class="bg-decor">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <!-- Navegación -->
+    <nav>
+        <a href="#" class="logo" id="nav-logo" data-key="nav-role">DOCENTE</a>
+        <div class="nav-actions">
+            <ul class="nav-links">
+                <li><a href="#home" data-key="nav-home">Inicio</a></li>
+                <li><a href="#about" data-key="nav-about">Bio</a></li>
+                <li><a href="#skills" data-key="nav-skills">Habilidades</a></li>
+                <li><a href="#contact" data-key="nav-contact">Contacto</a></li>
+            </ul>
+            <button class="lang-toggle" onclick="toggleLanguage()" id="lang-btn">EN</button>
+        </div>
+    </nav>
+
+    <!-- Home -->
+    <section id="home" class="visible">
+        <div class="container hero-content">
+            <div class="profile-wrapper">
+                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#ff647a" opacity="0.1" d="M44.7,-76.4C58.2,-69.2,69.8,-57.4,77.3,-43.8C84.8,-30.1,88.2,-15.1,87.5,-0.4C86.8,14.2,82,28.4,74.2,41.2C66.3,53.9,55.5,65.3,42.4,72.9C29.3,80.5,14.7,84.4,-0.4,85C-15.4,85.6,-30.8,82.9,-44.6,75.7C-58.3,68.4,-70.5,56.7,-78.2,42.8C-85.9,28.8,-89.2,12.7,-88.2,-3.1C-87.1,-18.8,-81.8,-34.2,-72.3,-47.1C-62.8,-60,-49.2,-70.3,-35,-77.1C-20.8,-83.9,-4.2,-87.3,11.2,-85.2C26.5,-83.2,31.2,-76,44.7,-76.4Z" transform="translate(100 100)" />
+                </svg>
+                <img src="https://res.cloudinary.com/duu803ale/image/upload/v1773295849/Caricatura_Maria_avib6d.png" alt="Maria Alejandra" class="profile-img">
+            </div>
+            <h1 class="hero-name">Maria Alejandra Méndez Calderón</h1>
+            <span class="role-badge" data-key="hero-role">Licenciada en Matemáticas</span>
+        </div>
+    </section>
+
+    <!-- Bio -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-key="about-title">Sobre Mí</h2>
+            </div>
+            <div class="glass-card">
+                <p style="font-size: 1.2rem; color: var(--text-muted); text-align: center;" data-key="about-desc">
+                    Soy docente de matemáticas con experiencia en educación básica y media. Me apasiona enseñar conceptos matemáticos de forma clara y práctica, fomentando el pensamiento lógico y el análisis estadístico en mis estudiantes.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-key="skills-title">Habilidades</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <span class="skill-icon">🧮</span>
+                    <h3 data-key="skill-1">Enseñanza de Matemáticas</h3>
+                    <p data-key="skill-1-desc">Dominio experto en la transmisión de conocimientos lógicos para diferentes niveles educativos.</p>
+                </div>
+                <div class="skill-item">
+                    <span class="skill-icon">✏️</span>
+                    <h3 data-key="skill-2">Diseño Didáctico</h3>
+                    <p data-key="skill-2-desc">Creación de actividades que transforman la teoría en situaciones reales y prácticas.</p>
+                </div>
+                <div class="skill-item">
+                    <span class="skill-icon">🖥️</span>
+                    <h3 data-key="skill-3">Herramientas Digitales</h3>
+                    <p data-key="skill-3-desc">Uso estratégico de la tecnología educativa para potenciar el análisis del estudiante.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experiencia -->
+    <section id="experience">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-key="exp-title">Trayectoria Profesional</h2>
+            </div>
+            <div class="exp-box">
+                <div class="exp-number">1+</div>
+                <div class="exp-info">
+                    <p style="font-size: 1.3rem; font-weight: 500;" data-key="exp-main">Tengo experiencia hace un año en la enseñanza de matemáticas, estadística y geometría.</p>
+                    <p style="color: var(--text-muted); margin-top: 15px;" data-key="exp-sub">Me interesa aplicar metodologías activas que permitan a los estudiantes comprender y aplicar los conceptos matemáticos en situaciones reales.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-key="contact-title">¿Hablamos?</h2>
+            </div>
+            <div class="contact-layout">
+                <div class="contact-info-card glass-card">
+                    <h3 style="color: var(--primary); margin-bottom: 20px;" data-key="contact-subtitle">Información de Contacto</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 25px;" data-key="contact-text">Iniciemos un proyecto juntos o resuelve tus dudas sobre mis servicios educativos.</p>
+                    <div class="contact-links">
+                        <a href="mailto:malejandra125@gmail.com" class="contact-link">
+                            <span>📧</span> malejandra125@gmail.com
+                        </a>
+                        <a href="https://www.linkedin.com/in/maria-alejandra-m%C3%A9ndez-calder%C3%B3n-440a7910b/" target="_blank" class="contact-link">
+                            <span>🔗</span> LinkedIn Profile
+                        </a>
+                    </div>
+                </div>
+                
+                <form class="contact-form glass-card" onsubmit="return false;">
+                    <div class="input-group">
+                        <label for="name" data-key="label-name">Nombre</label>
+                        <input type="text" id="name" placeholder="Tu nombre..." required>
+                    </div>
+                    <div class="input-group">
+                        <label for="email" data-key="label-email">Correo Electrónico</label>
+                        <input type="email" id="email" placeholder="tu@correo.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="message" data-key="label-message">Mensaje</label>
+                        <textarea id="message" rows="4" placeholder="¿En qué puedo ayudarte?" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-send" data-key="btn-send">Enviar Mensaje</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Maria Alejandra Méndez Calderón | <span data-key="footer">Diseñado con pasión</span></p>
+        </div>
+    </footer>
+
+    <script>
+        // === Traducciones ===
+        const translations = {
+            es: {
+                "nav-role": "DOCENTE",
+                "nav-home": "Inicio",
+                "nav-about": "Bio",
+                "nav-skills": "Habilidades",
+                "nav-contact": "Contacto",
+                "hero-role": "Licenciada en Matemáticas",
+                "about-title": "Sobre Mí",
+                "about-desc": "Soy docente de matemáticas con experiencia en educación básica y media. Me apasiona enseñar conceptos matemáticos de forma clara y práctica, fomentando el pensamiento lógico y el análisis estadístico en mis estudiantes.",
+                "skills-title": "Habilidades",
+                "skill-1": "Enseñanza de Matemáticas",
+                "skill-1-desc": "Dominio experto en la transmisión de conocimientos lógicos para diferentes niveles educativos.",
+                "skill-2": "Diseño Didáctico",
+                "skill-2-desc": "Creación de actividades que transforman la teoría en situaciones reales y prácticas.",
+                "skill-3": "Herramientas Digitales",
+                "skill-3-desc": "Uso estratégico de la tecnología educativa para potenciar el análisis del estudiante.",
+                "exp-title": "Trayectoria Profesional",
+                "exp-main": "Tengo experiencia hace un año en la enseñanza de matemáticas, estadística y geometría.",
+                "exp-sub": "Me interesa aplicar metodologías activas que permitan a los estudiantes comprender y aplicar los conceptos matemáticos en situaciones reales.",
+                "contact-title": "¿Hablamos?",
+                "contact-subtitle": "Información de Contacto",
+                "contact-text": "Iniciemos un proyecto juntos o resuelve tus dudas sobre mis servicios educativos.",
+                "label-name": "Nombre",
+                "label-email": "Correo Electrónico",
+                "label-message": "Mensaje",
+                "btn-send": "Enviar Mensaje",
+                "footer": "Diseñado con pasión",
+                "lang-btn": "EN"
+            },
+            en: {
+                "nav-role": "TEACHER",
+                "nav-home": "Home",
+                "nav-about": "About",
+                "nav-skills": "Skills",
+                "nav-contact": "Contact",
+                "hero-role": "Bachelor of Mathematics",
+                "about-title": "About Me",
+                "about-desc": "I am a mathematics teacher with experience in basic and secondary education. I am passionate about teaching mathematical concepts clearly and practically, fostering logical thinking and statistical analysis in my students.",
+                "skills-title": "My Skills",
+                "skill-1": "Math Teaching",
+                "skill-1-desc": "Expert mastery in transmitting logical knowledge for different educational levels.",
+                "skill-2": "Didactic Design",
+                "skill-2-desc": "Creation of activities that transform theory into real and practical situations.",
+                "skill-3": "Digital Tools",
+                "skill-3-desc": "Strategic use of educational technology to enhance student analysis.",
+                "exp-title": "Professional Path",
+                "exp-main": "I have one year of experience teaching mathematics, statistics, and geometry.",
+                "exp-sub": "I am interested in applying active methodologies that allow students to understand and apply mathematical concepts in real situations.",
+                "contact-title": "Let's Connect",
+                "contact-subtitle": "Contact Information",
+                "contact-text": "Let's start a project together or solve your questions about my educational services.",
+                "label-name": "Name",
+                "label-email": "Email Address",
+                "label-message": "Message",
+                "btn-send": "Send Message",
+                "footer": "Designed with passion",
+                "lang-btn": "ES"
+            }
+        };
+
+        let currentLang = 'es';
+        function toggleLanguage() {
+            currentLang = currentLang === 'es' ? 'en' : 'es';
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                el.innerText = translations[currentLang][key];
+            });
+            document.getElementById('lang-btn').innerText = translations[currentLang]['lang-btn'];
+        }
+
+        // === Cursor Animado Personalizado ===
+        const dot = document.getElementById('cursor-dot');
+        const outline = document.getElementById('cursor-outline');
+
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            dot.style.transform = `translate(${posX}px, ${posY}px)`;
+            
+            // Efecto suave para el contorno
+            outline.animate({
+                transform: `translate(${posX - 20}px, ${posY - 20}px)`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        // Efectos del cursor sobre elementos interactivos
+        document.querySelectorAll('a, button, input, textarea').forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                outline.style.transform += ' scale(1.5)';
+                outline.style.background = 'rgba(255, 100, 122, 0.1)';
+            });
+            link.addEventListener('mouseleave', () => {
+                outline.style.transform = outline.style.transform.replace(' scale(1.5)', '');
+                outline.style.background = 'transparent';
+            });
+        });
+
+        // === Reveal Scroll Animation ===
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(sec => observer.observe(sec));
+    </script>
+</body>
+</html>
